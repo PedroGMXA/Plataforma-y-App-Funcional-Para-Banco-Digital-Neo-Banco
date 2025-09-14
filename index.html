@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>GMXA | Banca Digital de Nueva Generación</title>
+
+    <!-- PWA & Mobile Experience Enhancements -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF7F00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GMXA">
+    
+    <!-- Favicon with Gradient -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23FF9900;'/%3E%3Cstop offset='100%25' style='stop-color:%23FF6600;'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z'/%3E%3Ctext x='50' y='60' font-size='38' fill='white' font-family='Poppins, sans-serif' font-weight='bold' text-anchor='middle'%3EGX%3C/text%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --accent-start: #FF9900; --accent-end: #FF6600;
+            --bg-light: #f8f9fa; --card-light: #ffffff; --text-light: #1a202c; --text-secondary-light: #4a5568; --border-light: #e2e8f0;
+            --bg-dark: #0f172a; --card-dark: #1e293b; --text-dark: #e2e8f0; --text-secondary-dark: #94a3b8; --border-dark: #334155;
+        }
+        .theme-light { --bg: var(--bg-light); --card: var(--card-light); --text: var(--text-light); --text-secondary: var(--text-secondary-light); --border: var(--border-light); }
+        .theme-dark { --bg: var(--bg-dark); --card: var(--card-dark); --text: var(--text-dark); --text-secondary: var(--text-secondary-dark); --border: var(--border-dark); }
+        
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); transition: background-color 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; color: var(--text); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--accent-start), var(--accent-end)); transition: transform 0.2s ease, box-shadow 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--accent-start) 40%, transparent); }
+        
+        .gradient-text { background: linear-gradient(135deg, var(--accent-start), var(--accent-end)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .custom-card { background-color: var(--card); border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .custom-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05); }
+
+        #mobile-menu { transition: opacity 0.3s ease-in-out; }
+        
+        .bank-card-visual { font-family: 'Space Mono', monospace; border-radius: 1.25rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); transform: perspective(1000px); transition: transform 0.4s ease; }
+    </style>
+</head>
+<body class="theme-light">
+
+    <!-- HEADER -->
+    <header id="main-header" class="sticky top-0 z-50 py-4 px-6 md:px-10 flex justify-between items-center transition-all duration-300 backdrop-blur-lg" style="background-color: color-mix(in srgb, var(--card) 80%, transparent); border-bottom: 1px solid var(--border);">
+        <a href="#" class="flex items-center gap-2">
+            <svg class="h-8 w-8" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--accent-start);"/><stop offset="100%" style="stop-color:var(--accent-end);"/></linearGradient></defs><path fill="url(#g)" d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z"/><text x="50" y="60" font-size="38" fill="white" font-family="Poppins, sans-serif" font-weight="bold" text-anchor="middle">GX</text></svg>
+            <h1 class="text-2xl font-bold">GMXA</h1>
+        </a>
+        <nav class="hidden lg:flex items-center gap-8">
+            <a href="#products" class="font-semibold text-lg hover:text-[color:var(--accent-start)] transition-colors">Productos</a>
+            <a href="#features" class="font-semibold text-lg hover:text-[color:var(--accent-start)] transition-colors">Beneficios</a>
+            <a href="#testimonials" class="font-semibold text-lg hover:text-[color:var(--accent-start)] transition-colors">Comunidad</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="login.html" class="hidden sm:block font-semibold text-lg py-2 px-6 rounded-full border-2 border-transparent hover:border-[color:var(--accent-start)] transition-colors">Iniciar Sesión</a>
+            <a href="login.html?action=signup" class="btn-primary text-white font-bold py-2 px-6 rounded-full text-lg shadow-md">Crear Cuenta</a>
+            <button id="theme-toggle" class="text-xl w-10 h-10 rounded-full flex items-center justify-center lg:ml-4"><i class="fas fa-moon"></i></button>
+            <button id="menu-btn" class="lg:hidden text-2xl"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU (Overlay) -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 text-2xl font-bold text-center bg-[color:var(--bg)] opacity-0 pointer-events-none lg:hidden">
+        <a href="#products" class="mobile-link">Productos</a>
+        <a href="#features" class="mobile-link">Beneficios</a>
+        <a href="#testimonials" class="mobile-link">Comunidad</a>
+        <a href="login.html" class="mobile-link mt-8 border-t-2 border-[color:var(--border)] pt-8">Iniciar Sesión</a>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative text-center py-20 md:py-32 px-6 overflow-hidden">
+             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[color:var(--bg)] z-10"></div>
+             <div class="absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_center,_var(--accent-start)_0,_transparent_50%)] opacity-10 theme-dark:opacity-20"></div>
+            <div class="relative z-20 max-w-4xl mx-auto">
+                <h2 id="hero-title" class="text-5xl md:text-7xl font-extrabold tracking-tight">
+                    La banca que <span class="gradient-text">evoluciona contigo.</span>
+                </h2>
+                <p id="hero-subtitle" class="mt-6 max-w-2xl mx-auto text-xl md:text-2xl" style="color: var(--text-secondary);">
+                    Gestiona tu dinero sin esfuerzo. Sin comisiones, sin burocracia, 100% digital.
+                </p>
+                <div id="hero-cta" class="mt-10">
+                    <a href="login.html?action=signup" class="btn-primary text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg">Únete ahora y abre tu cuenta</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS SECTION -->
+        <section id="products" class="py-20 px-6 overflow-hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold">Un ecosistema financiero a tu medida</h2>
+                    <p class="mt-4 text-lg" style="color: var(--text-secondary);">Todo lo que necesitas para manejar, ahorrar e invertir tu dinero. Simple, transparente y poderoso.</p>
+                </div>
+
+                <div class="product-showcase grid md:grid-cols-2 gap-12 md:gap-16 items-center mt-20">
+                    <div class="product-text">
+                        <h3 class="text-3xl font-bold">Cuenta <span class="gradient-text">GMXA Débito</span></h3>
+                        <p class="text-lg mt-4 font-medium" style="color: var(--text-secondary);">La base de tus finanzas. Libertad total, sin comisiones ni condiciones.</p>
+                        <ul class="mt-6 space-y-3">
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Apertura sin costo ni monto mínimo:** Empieza cuando quieras.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Cero comisiones:** Libérate de cargos ocultos y saldo mínimo.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Tarjeta de Débito Física y digital:** Aceptada globalmente, sin costo.</span></li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="bank-card-visual p-6 w-full max-w-sm text-white flex flex-col justify-between h-56" style="background: linear-gradient(135deg, #2A405F, #3B5D8B);">
+                            <div class="flex justify-between items-start"><span class="font-semibold text-xl">GMXA Débito</span><i class="fab fa-cc-mastercard text-4xl"></i></div>
+                            <div class="flex flex-col gap-2">
+                                <div style="width: 48px; height: 38px; background: linear-gradient(135deg, #d4af37, #f7d26b, #b8860b); border-radius: 6px;"></div>
+                                <p class="tracking-widest text-lg">**** **** **** 1234</p>
+                                <div class="flex justify-between items-end"><span class="font-medium text-sm uppercase">JUAN P. RODRIGUEZ</span><span class="text-xs">12/28</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-showcase grid md:grid-cols-2 gap-12 md:gap-16 items-center mt-24">
+                    <div class="flex justify-center md:order-2">
+                        <div class="bank-card-visual p-6 w-full max-w-sm text-white flex flex-col justify-between h-56" style="background: linear-gradient(135deg, var(--accent-start), var(--accent-end));">
+                           <div class="flex justify-between items-start"><span class="font-semibold text-xl">GMXA Crédito</span><i class="fab fa-cc-visa text-4xl"></i></div>
+                            <div class="flex flex-col gap-2">
+                                <div style="width: 48px; height: 38px; background: linear-gradient(135deg, #d4af37, #f7d26b, #b8860b); border-radius: 6px;"></div>
+                                <p class="tracking-widest text-lg">**** **** **** 5678</p>
+                                <div class="flex justify-between items-end"><span class="font-medium text-sm uppercase">JUAN P. RODRIGUEZ</span><span class="text-xs">08/29</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-text md:order-1">
+                        <h3 class="text-3xl font-bold">Tarjeta de <span class="gradient-text">Crédito</span></h3>
+                        <p class="text-lg mt-4 font-medium" style="color: var(--text-secondary);">La aliada para tus compras y proyectos, con beneficios exclusivos.</p>
+                         <ul class="mt-6 space-y-3">
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Cashback en todas tus compras:** Recibe dinero de vuelta por usar tu tarjeta.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Meses Sin Intereses:** Difiere tus pagos en miles de comercios.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Sin anualidad:** Al cumplir una meta mínima de compras.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <div class="product-showcase grid md:grid-cols-2 gap-12 md:gap-16 items-center mt-24">
+                    <div class="product-text">
+                        <h3 class="text-3xl font-bold">Préstamos <span class="gradient-text">Personales</span></h3>
+                        <p class="text-lg mt-4 font-medium" style="color: var(--text-secondary);">El impulso que necesitas, sin papeleo y con condiciones claras.</p>
+                         <ul class="mt-6 space-y-3">
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Solicitud 100% digital:** Pídelo desde la app, sin burocracia.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Montos flexibles:** Desde $5,000 hasta $200,000 MXN.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Plazos a tu medida:** Elige pagar entre 6 y 24 meses.</span></li>
+                        </ul>
+                    </div>
+                     <div class="flex justify-center">
+                        <div class="bank-card-visual p-6 w-full max-w-sm text-white flex flex-col justify-between h-56" style="background: linear-gradient(135deg, #047857, #059669);">
+                            <div class="flex justify-between items-start"><span class="font-semibold text-xl">Préstamo Aprobado</span><i class="fas fa-check-circle text-3xl"></i></div>
+                            <div class="text-center my-auto"><p class="text-sm">Monto disponible</p><p class="text-5xl font-bold tracking-tight">$50,000</p></div>
+                            <p class="text-xs text-center text-white/70">Respuesta en minutos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="product-showcase grid md:grid-cols-2 gap-12 md:gap-16 items-center mt-24">
+                     <div class="flex justify-center md:order-2">
+                        <div class="bank-card-visual p-6 w-full max-w-sm custom-card flex flex-col justify-between h-56">
+                            <div class="flex justify-between items-start"><span class="font-semibold text-xl">Meta: Viaje</span><i class="fas fa-plane-departure text-3xl text-blue-500"></i></div>
+                            <div class="text-center"><p class="text-sm" style="color: var(--text-secondary);">Progreso</p><p class="text-4xl font-bold gradient-text">75%</p></div>
+                            <div><div class="w-full bg-[color:var(--border)] rounded-full h-2.5"><div class="bg-gradient-to-r from-blue-400 to-blue-600 h-2.5 rounded-full" style="width: 75%"></div></div><p class="text-xs text-right mt-1" style="color: var(--text-secondary);">$7,500 / $10,000</p></div>
+                        </div>
+                    </div>
+                    <div class="product-text md:order-1">
+                        <h3 class="text-3xl font-bold">Metas de Ahorro <span class="gradient-text">Inteligentes</span></h3>
+                        <p class="text-lg mt-4 font-medium" style="color: var(--text-secondary);">Alcanza tus sueños programando tus ahorros y generando rendimientos.</p>
+                        <ul class="mt-6 space-y-3">
+                           <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Rendimiento competitivo:** Tu dinero crece mientras ahorras.</span></li>
+                           <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Apartados automáticos:** Olvídate de ahorrar, nosotros lo hacemos por ti.</span></li>
+                           <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span style="color: var(--text-secondary);">**Metas ilimitadas:** Crea todos los objetivos que necesites.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="py-20 px-6 bg-[color:var(--card)] border-y border-[color:var(--border)]">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="text-4xl font-bold">Beneficios que marcan la diferencia</h2>
+                    <p class="mt-4 text-xl" style="color: var(--text-secondary);">Diseñado para hacer tu vida financiera más simple y segura.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+                    <div class="feature-card p-8 rounded-2xl"><div class="text-3xl text-[color:var(--accent-start)] mb-4"><i class="fas fa-bolt"></i></div><h4 class="font-bold text-2xl mb-2">Transferencias al Instante</h4><p style="color: var(--text-secondary);">Envía y recibe dinero 24/7 sin costo alguno.</p></div>
+                    <div class="feature-card p-8 rounded-2xl"><div class="text-3xl text-[color:var(--accent-start)] mb-4"><i class="fas fa-shield-alt"></i></div><h4 class="font-bold text-2xl mb-2">Seguridad Total</h4><p style="color: var(--text-secondary);">Protección biométrica y cifrado de grado militar para tu tranquilidad.</p></div>
+                    <div class="feature-card p-8 rounded-2xl"><div class="text-3xl text-[color:var(--accent-start)] mb-4"><i class="fas fa-gift"></i></div><h4 class="font-bold text-2xl mb-2">Recompensas Reales</h4><p style="color: var(--text-secondary);">Obtén cashback y beneficios exclusivos al usar tu tarjeta GMXA.</p></div>
+                    <div class="feature-card p-8 rounded-2xl"><div class="text-3xl text-[color:var(--accent-start)] mb-4"><i class="fas fa-headset"></i></div><h4 class="font-bold text-2xl mb-2">Soporte Humano</h4><p style="color: var(--text-secondary);">Habla con personas reales que resuelven tus dudas al instante.</p></div>
+                    <div class="feature-card p-8 rounded-2xl"><div class="text-3xl text-[color:var(--accent-start)] mb-4"><i class="fas fa-chart-line"></i></div><h4 class="font-bold text-2xl mb-2">Inversiones Fáciles</h4><p style="color: var(--text-secondary);">Pon tu dinero a trabajar con solo un par de clics.</p></div>
+                    <div class="feature-card p-8 rounded-2xl"><div class="text-3xl text-[color:var(--accent-start)] mb-4"><i class="fas fa-globe"></i></div><h4 class="font-bold text-2xl mb-2">Sin Fronteras</h4><p style="color: var(--text-secondary);">Usa tu tarjeta en todo el mundo con tipos de cambio justos.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section id="testimonials" class="py-20 px-6">
+            <div class="max-w-6xl mx-auto text-center reveal">
+                <h3 class="text-4xl font-bold">Amado por miles de usuarios</h3>
+                <p class="mt-4 text-xl" style="color: var(--text-secondary);">Descubre por qué nuestra comunidad nos elige cada día.</p>
+                <div class="grid md:grid-cols-3 gap-8 mt-16 text-left">
+                    <div class="testimonial-card custom-card p-8 rounded-2xl"><div class="flex items-center gap-4 mb-4"><img src="https://api.dicebear.com/7.x/initials/svg?seed=Ana%20G" alt="Avatar" class="w-12 h-12 rounded-full"><div class="font-bold">Ana G.</div></div><p style="color: var(--text-secondary);">"¡La mejor app de banca! Es súper intuitiva y me ayudó a organizar mis ahorros. ¡La recomiendo al 100%!"</p></div>
+                    <div class="testimonial-card custom-card p-8 rounded-2xl"><div class="flex items-center gap-4 mb-4"><img src="https://api.dicebear.com/7.x/initials/svg?seed=Carlos%20M" alt="Avatar" class="w-12 h-12 rounded-full"><div class="font-bold">Carlos M.</div></div><p style="color: var(--text-secondary);">"Adiós a las filas y al papeleo. Abrí mi cuenta en 5 minutos desde mi celular. ¡Increíble servicio!"</p></div>
+                    <div class="testimonial-card custom-card p-8 rounded-2xl"><div class="flex items-center gap-4 mb-4"><img src="https://api.dicebear.com/7.x/initials/svg?seed=Sofia%20L" alt="Avatar" class="w-12 h-12 rounded-full"><div class="font-bold">Sofía L.</div></div><p style="color: var(--text-secondary);">"Me encanta la seguridad que ofrece. Usar la tarjeta virtual para comprar en línea me da mucha tranquilidad."</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOWNLOAD (CTA) SECTION -->
+        <section id="download" class="py-20 px-6">
+            <div class="max-w-4xl mx-auto custom-card rounded-2xl p-10 text-center reveal" style="background: linear-gradient(135deg, var(--accent-start), var(--accent-end));">
+                <h3 class="text-4xl font-bold text-white">Tu futuro financiero empieza hoy</h3>
+                <p class="mt-4 text-xl text-white/80">Descarga la app y únete a la revolución de la banca digital.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                     <a href="#" aria-label="Descargar en App Store"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" class="h-14"></a>
+                    <a href="#" aria-label="Disponible en Google Play"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png" alt="Google Play" class="h-14"></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="pt-16 pb-8 px-6 text-sm bg-[color:var(--card)] border-t border-[color:var(--border)]">
+        <div class="max-w-7xl mx-auto text-center" style="color: var(--text-secondary);">
+            <a href="#" class="flex items-center justify-center gap-2 mb-4">
+                <svg class="h-8 w-8" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--accent-start);"/><stop offset="100%" style="stop-color:var(--accent-end);"/></linearGradient></defs><path fill="url(#fg)" d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z"/><text x="50" y="60" font-size="38" fill="white" font-family='Poppins' font-weight='bold' text-anchor='middle'>GX</text></svg>
+                <h4 class="font-bold text-2xl" style="color: var(--text);">GMXA</h4>
+            </a>
+            <div class="flex justify-center gap-6 my-6">
+                <a href="#products" class="font-semibold hover:text-[color:var(--accent-start)] transition-colors">Productos</a>
+                <a href="#" class="font-semibold hover:text-[color:var(--accent-start)] transition-colors">Ayuda</a>
+                <a href="#" class="font-semibold hover:text-[color:var(--accent-start)] transition-colors">Legal</a>
+            </div>
+            <div class="flex justify-center gap-6 text-2xl my-6">
+                <a href="#" aria-label="Facebook" class="hover:text-[color:var(--accent-start)]"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram" class="hover:text-[color:var(--accent-start)]"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter" class="hover:text-[color:var(--accent-start)]"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="mt-8 text-xs">© 2025 GMXA, S.A. Institución de Banca Múltiple. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- THEME TOGGLE ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('gmxaTheme') || 'light';
+            
+            function setTheme(theme) {
+                body.className = `theme-${theme}`;
+                document.documentElement.className = `theme-${theme}`;
+                themeToggle.innerHTML = `<i class="fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}"></i>`;
+                localStorage.setItem('gmxaTheme', theme);
+            }
+            setTheme(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                setTheme(body.classList.contains('theme-light') ? 'dark' : 'light');
+            });
+
+            // --- MOBILE MENU ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+
+            function toggleMenu() {
+                const isOpen = mobileMenu.classList.contains('opacity-100');
+                mobileMenu.classList.toggle('opacity-0', isOpen);
+                mobileMenu.classList.toggle('opacity-100', !isOpen);
+                mobileMenu.classList.toggle('pointer-events-none', isOpen);
+                mobileMenu.classList.toggle('pointer-events-auto', !isOpen);
+                menuBtn.innerHTML = `<i class="fas ${isOpen ? 'fa-bars' : 'fa-times'}"></i>`;
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // --- GSAP ANIMATIONS ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero Animation
+            gsap.from("#hero-title", { opacity: 0, y: 20, duration: 0.8, delay: 0.2 });
+            gsap.from("#hero-subtitle", { opacity: 0, y: 20, duration: 0.8, delay: 0.4 });
+            gsap.from("#hero-cta", { opacity: 0, y: 20, duration: 0.8, delay: 0.6 });
+
+            // General reveal animation for sections
+            gsap.utils.toArray('.reveal').forEach(elem => {
+                gsap.from(elem, {
+                    opacity: 0,
+                    y: 40,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+
+            // Unique animations for product showcases
+            gsap.utils.toArray('.product-showcase').forEach(showcase => {
+                const text = showcase.querySelector('.product-text');
+                const card = showcase.querySelector('.bank-card-visual');
+                
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: showcase,
+                        start: "top 70%",
+                        toggleActions: "play none none none"
+                    }
+                });
+
+                tl.from(text, { opacity: 0, x: -50, duration: 0.8, ease: "power2.out" })
+                  .from(card, { opacity: 0, x: 50, duration: 1, ease: "power2.out", rotationY: -30 }, "-=0.6");
+            });
+            
+            // Staggered animations for cards
+             const staggerConfig = {
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                ease: "power2.out",
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: ".feature-card",
+                    start: "top 80%",
+                }
+            };
+            gsap.from(".feature-card", staggerConfig);
+            gsap.from(".testimonial-card", { ...staggerConfig, trigger: ".testimonial-card" });
+
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>GMXA | Crear Cuenta</title>
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FF7F00' d='M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z'/%3E%3Ctext x='50' y='60' font-size='38' fill='white' font-family='Poppins, sans-serif' font-weight='bold' text-anchor='middle'%3EGX%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Estilos idénticos a login.html para consistencia */
+        :root {
+            --body-bg-light: #f4f7fc; --card-bg-light: rgba(255, 255, 255, 0.9); --text-primary-light: #1a202c; --text-secondary-light: #4a5568; --accent-color-light: #FF7F00; --accent-gradient-start-light: #FF9900; --accent-gradient-end-light: #FF6600; --border-light: #e2e8f0; --shadow-light: rgba(26, 32, 44, 0.1);
+            --body-bg-dark: #0F172A; --card-bg-dark: rgba(26, 32, 44, 0.85); --text-primary-dark: #e2e8f0; --text-secondary-dark: #9ca3af; --accent-color-dark: #FF8C00; --accent-gradient-start-dark: #FFA500; --accent-gradient-end-dark: #FF7F00; --border-dark: #2d3748; --shadow-dark: rgba(0, 0, 0, 0.4);
+        }
+        .theme-light { --body-bg: var(--body-bg-light); --card-bg: var(--card-bg-light); --text-primary: var(--text-primary-light); --text-secondary: var(--text-secondary-light); --accent-color: var(--accent-color-light); --accent-gradient-start: var(--accent-gradient-start-light); --accent-gradient-end: var(--accent-gradient-end-light); --border-color: var(--border-light); --shadow-color: var(--shadow-dark); }
+        .theme-dark { --body-bg: var(--body-bg-dark); --card-bg: var(--card-bg-dark); --text-primary: var(--text-primary-dark); --text-secondary: var(--text-secondary-dark); --accent-color: var(--accent-color-dark); --accent-gradient-start: var(--accent-gradient-start-dark); --accent-gradient-end: var(--accent-gradient-end-dark); --border-color: var(--border-dark); --shadow-color: var(--shadow-dark); }
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--body-bg); color: var(--text-primary); transition: background-color 0.4s ease, color 0.4s ease; overflow: hidden; }
+        h1, h2, h3, button { font-family: 'Poppins', sans-serif; }
+
+        .background-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .shape { position: absolute; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gradient-start), var(--accent-gradient-end)); animation: float 20s infinite ease-in-out; }
+        .shape1 { width: 400px; height: 400px; top: -150px; left: -150px; animation-duration: 25s; }
+        .shape2 { width: 300px; height: 300px; bottom: -100px; right: -100px; animation-duration: 20s; animation-delay: 5s; }
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg) scale(1); } 50% { transform: translateY(-30px) rotate(180deg) scale(1.1); } 100% { transform: translateY(0px) rotate(360deg) scale(1); } }
+
+        .login-card { background-color: var(--card-bg); backdrop-filter: blur(15px); border: 1px solid color-mix(in srgb, var(--border-color) 50%, transparent); box-shadow: 0 10px 40px var(--shadow-color); transition: background-color 0.4s ease; animation: fade-in 0.6s ease-out; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .input-group { position: relative; }
+        .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+        .form-input { background-color: color-mix(in srgb, var(--body-bg) 50%, transparent); border: 1px solid var(--border-color); color: var(--text-primary); transition: all 0.3s ease; }
+        .form-input:focus { border-color: var(--accent-color); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 20%, transparent); background-color: var(--card-bg); }
+
+        .btn-primary { background: linear-gradient(135deg, var(--accent-gradient-start), var(--accent-gradient-end)); transition: transform 0.2s ease, box-shadow 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 20px color-mix(in srgb, var(--accent-color) 40%, transparent); }
+    </style>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+    </div>
+    
+    <button id="theme-toggle" class="fixed top-6 right-6 z-20 text-xl w-12 h-12 rounded-full flex items-center justify-center border transition-colors" style="background-color: var(--card-bg); color: var(--text-secondary); border-color: var(--border-color);">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <main class="relative min-h-screen w-full flex items-center justify-center p-4 z-10">
+        <div class="login-card w-full max-w-md p-8 md:p-10 rounded-2xl">
+            
+            <a href="index.html" class="flex flex-col items-center text-center mb-8">
+                <svg class="h-14 w-14 mb-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:var(--accent-gradient-start);" />
+                            <stop offset="100%" style="stop-color:var(--accent-gradient-end);" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#logoGradient)" d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z"/>
+                    <text x="50" y="60" font-size="38" fill="white" font-family="Poppins, sans-serif" font-weight="bold" text-anchor="middle">GX</text>
+                </svg>
+                <h1 class="text-3xl font-bold text-[var(--text-primary)]">Crea tu Cuenta</h1>
+                <p class="mt-2 text-lg text-[var(--text-secondary)]">Únete a la nueva generación de la banca.</p>
+            </a>
+            
+            <!-- El formulario ya no necesita 'action' ni 'method' -->
+            <form id="register-form" class="space-y-6">
+                
+                <div id="message-container" class="h-6"></div>
+
+                <div class="input-group">
+                    <label for="nombre" class="sr-only">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" class="form-input w-full pl-12 pr-4 py-3 rounded-lg text-lg" placeholder="Nombre Completo" required autocomplete="name">
+                    <i class="input-icon fas fa-user"></i>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email" class="sr-only">Correo electrónico</label>
+                    <input type="email" id="email" name="email" class="form-input w-full pl-12 pr-4 py-3 rounded-lg text-lg" placeholder="Correo electrónico" required autocomplete="email">
+                    <i class="input-icon fas fa-envelope"></i>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password" class="sr-only">Contraseña</label>
+                    <input type="password" id="password" name="password" class="form-input w-full pl-12 pr-4 py-3 rounded-lg text-lg" placeholder="Contraseña" required autocomplete="new-password">
+                    <i class="input-icon fas fa-lock"></i>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirm_password" class="sr-only">Confirmar Contraseña</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-input w-full pl-12 pr-4 py-3 rounded-lg text-lg" placeholder="Confirmar Contraseña" required autocomplete="new-password">
+                    <i class="input-icon fas fa-check-circle"></i>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full font-bold py-3.5 px-6 rounded-lg text-white text-lg">
+                    Crear Cuenta
+                </button>
+            </form>
+            
+            <p class="text-center mt-8 text-[var(--text-secondary)]">
+                ¿Ya tienes una cuenta? <a href="login.html" class="font-bold transition-colors text-[var(--accent-color)] hover:brightness-125">Inicia Sesión</a>
+            </p>
+            
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // THEME TOGGLE SCRIPT (sin cambios)
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlEl = document.documentElement;
+            function setTheme(theme) { htmlEl.className = `theme-${theme}`; themeToggle.innerHTML = `<i class="fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}"></i>`; localStorage.setItem('gmxaTheme', theme); }
+            const savedTheme = localStorage.getItem('gmxaTheme') || 'light';
+            setTheme(savedTheme);
+            themeToggle.addEventListener('click', () => { const newTheme = htmlEl.classList.contains('theme-light') ? 'dark' : 'light'; setTheme(newTheme); });
+
+            // --- SCRIPT DE REGISTRO MODERNO CON FETCH ---
+            const form = document.getElementById('register-form');
+            const messageContainer = document.getElementById('message-container');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            form.addEventListener('submit', async function(event) {
+                // 1. Prevenir el envío tradicional del formulario
+                event.preventDefault();
+                
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm_password').value;
+
+                // 2. Validación de contraseñas en el cliente
+                if (password !== confirmPassword) {
+                    messageContainer.innerHTML = `<p class="text-red-500 text-sm text-center">Las contraseñas no coinciden.</p>`;
+                    return;
+                }
+                
+                // Mostrar estado de carga
+                submitButton.disabled = true;
+                submitButton.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i>Creando cuenta...`;
+                messageContainer.innerHTML = '';
+
+                // 3. Recolectar datos y convertirlos a JSON
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    // 4. Enviar datos a la API usando fetch
+                    const response = await fetch('api/register.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    const result = await response.json();
+
+                    // 5. Manejar la respuesta de la API
+                    if (response.ok) {
+                        messageContainer.innerHTML = `<p class="text-green-500 text-sm text-center">${result.message}</p>`;
+                        // Redireccionar al login después de un breve momento
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    } else {
+                        throw new Error(result.message || 'Ocurrió un error desconocido.');
+                    }
+
+                } catch (error) {
+                    messageContainer.innerHTML = `<p class="text-red-500 text-sm text-center">${error.message}</p>`;
+                } finally {
+                    // Restaurar el botón
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Crear Cuenta';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

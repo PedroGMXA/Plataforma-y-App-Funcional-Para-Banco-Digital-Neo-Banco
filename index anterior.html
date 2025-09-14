@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>GMXA | Banca Digital de Nueva Generación</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF7F00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GMXA">
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FF7F00' d='M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z'/%3E%3Ctext x='50' y='60' font-size='38' fill='white' font-family='Poppins, sans-serif' font-weight='bold' text-anchor='middle'%3EGX%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            /* Light Theme */
+            --header-bg-light: #ffffff;
+            --body-bg-light: #f4f7fc;
+            --text-primary-light: #1a202c;
+            --text-secondary-light: #4a5568;
+            --card-bg-light: #ffffff;
+            --accent-color-light: #FF7F00; /* Original vibrant orange */
+            --accent-color-gradient-start-light: #FF9900;
+            --accent-color-gradient-end-light: #FF6600;
+            --border-light: #e2e8f0;
+            --shadow-light: rgba(26, 32, 44, 0.08);
+
+            /* Dark Theme */
+            --header-bg-dark: #1A202C;
+            --body-bg-dark: #0F172A;
+            --text-primary-dark: #e2e8f0;
+            --text-secondary-dark: #a0aec0;
+            --card-bg-dark: #1A202C;
+            --accent-color-dark: #FF8C00; /* Slightly softer orange for dark mode */
+            --accent-color-gradient-start-dark: #FFA500;
+            --accent-color-gradient-end-dark: #FF7F00;
+            --border-dark: #2d3748;
+            --shadow-dark: rgba(0, 0, 0, 0.25);
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        /* Applying Themes */
+        .theme-light {
+            --header-bg: var(--header-bg-light);
+            --body-bg: var(--body-bg-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --card-bg: var(--card-bg-light);
+            --accent-color: var(--accent-color-light);
+            --accent-color-gradient-start: var(--accent-color-gradient-start-light);
+            --accent-color-gradient-end: var(--accent-color-gradient-end-light);
+            --border-color: var(--border-light);
+            --shadow-color: var(--shadow-light);
+        }
+        .theme-dark {
+            --header-bg: var(--header-bg-dark);
+            --body-bg: var(--body-bg-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --card-bg: var(--card-bg-dark);
+            --accent-color: var(--accent-color-dark);
+            --accent-color-gradient-start: var(--accent-color-gradient-start-dark);
+            --accent-color-gradient-end: var(--accent-color-gradient-end-dark);
+            --border-color: var(--border-dark);
+            --shadow-color: var(--shadow-dark);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif; /* Más profesional y moderno */
+            background-color: var(--body-bg);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+
+        .custom-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 25px var(--shadow-color);
+            transition: all 0.4s ease-in-out;
+        }
+        .custom-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color-gradient-start), var(--accent-color-gradient-end));
+            transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 25px color-mix(in srgb, var(--accent-color) 60%, transparent);
+            transform: translateY(-2px);
+        }
+        .btn-primary:active { transform: scale(0.96); }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-color-gradient-start), var(--accent-color-gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .animated.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Hero section specific styles for background pattern */
+        .hero-bg-pattern {
+            background-image: radial-gradient(circle at 10% 20%, var(--accent-color-gradient-start) 0%, rgba(255,198,103,0) 50%),
+                              radial-gradient(circle at 90% 80%, var(--accent-color-gradient-end) 0%, rgba(255,103,103,0) 50%);
+            background-size: 800px 800px;
+            background-position: top left, bottom right;
+            background-repeat: no-repeat;
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            z-index: -1;
+            mix-blend-mode: luminosity; /* Subtle blend */
+        }
+        .theme-dark .hero-bg-pattern { opacity: 0.1; mix-blend-mode: soft-light; }
+
+        /* Custom Card styles for Products */
+        .bank-card {
+            background: linear-gradient(135deg, #2A405F, #3B5D8B); /* Darker blue tones */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.1);
+            position: relative; overflow: hidden;
+            border-radius: 1.5rem;
+            color: white;
+        }
+        .bank-card.credit {
+            background: linear-gradient(135deg, var(--accent-color-gradient-start), var(--accent-color-gradient-end)); /* Accent for credit card */
+        }
+        .bank-card-chip {
+            width: 48px; height: 38px;
+            background: linear-gradient(135deg, #d4af37, #f7d26b, #b8860b);
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .bank-card .logo-overlay {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        .bank-card .number-text {
+            font-family: 'Space Mono', monospace; /* Tipo de letra fijo para números */
+            letter-spacing: 2px;
+        }
+        .bank-card .owner-name {
+             font-family: 'Space Mono', monospace;
+             text-transform: uppercase;
+        }
+
+        /* Progress bar for Metas */
+        .progress-bar-container {
+            background-color: var(--border-color);
+            border-radius: 9999px; /* rounded-full */
+            height: 10px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, var(--accent-color-gradient-start), var(--accent-color-gradient-end));
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 1s ease-out;
+        }
+    </style>
+</head>
+<body class="theme-light">
+
+    <header class="sticky top-0 z-50 py-4 px-6 md:px-10 flex justify-between items-center transition-colors duration-300 backdrop-blur-md" style="background-color: color-mix(in srgb, var(--header-bg) 85%, transparent); border-bottom: 1px solid var(--border-color);">
+        <a href="#" class="flex items-center gap-2">
+            <svg class="h-8 w-8" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path fill="url(#logoGradient)" d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z"/>
+                <text x="50" y="60" font-size="38" fill="white" font-family="Poppins, sans-serif" font-weight="bold" text-anchor="middle">GX</text>
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--accent-color-gradient-start); stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:var(--accent-color-gradient-end); stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1 class="text-2xl font-bold text-[var(--text-primary)]">GMXA</h1>
+        </a>
+        <nav class="hidden lg:flex items-center gap-8">
+            <a href="#products" class="font-medium hover:text-[color:var(--accent-color)] transition-colors text-lg">Productos</a>
+            <a href="#features" class="font-medium hover:text-[color:var(--accent-color)] transition-colors text-lg">Beneficios</a>
+            <a href="#about" class="font-medium hover:text-[color:var(--accent-color)] transition-colors text-lg">Conócenos</a>
+            <a href="#testimonials" class="font-medium hover:text-[color:var(--accent-color)] transition-colors text-lg">Comunidad</a>
+            <a href="#help" class="font-medium hover:text-[color:var(--accent-color)] transition-colors text-lg">Soporte</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button id="theme-toggle" class="text-xl w-10 h-10 rounded-full flex items-center justify-center border text-[var(--text-secondary)] bg-[var(--body-bg)] border-[var(--border-color)]"><i class="fas fa-moon"></i></button>
+            <a href="login.html" class="border border-[color:var(--accent-color)] text-[color:var(--accent-color)] font-semibold py-2 px-6 rounded-full hidden sm:block text-lg transition-colors hover:bg-[color:var(--accent-color)] hover:text-white">
+                Iniciar Sesión
+            </a>
+            <a href="#download" class="btn-primary text-white font-semibold py-2.5 px-6 rounded-full hidden sm:block text-lg shadow-md">
+                Descargar App
+            </a>
+            <button class="lg:hidden text-2xl text-[var(--text-primary)]"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative overflow-hidden py-24 md:py-32 px-6 text-center">
+            <div class="hero-bg-pattern"></div>
+            <div class="max-w-4xl mx-auto relative z-10 fade-in-up animated">
+                <h2 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight">
+                    La Banca del Futuro,<br> <span class="gradient-text">Hoy a tu Alcance.</span>
+                </h2>
+                <p class="mt-6 max-w-2xl mx-auto text-xl md:text-2xl text-[var(--text-secondary)]">
+                    Experimenta una nueva era financiera. Gestión inteligente, segura y 100% digital.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#download" class="btn-primary text-white font-bold py-3.5 px-10 rounded-full text-xl shadow-lg">
+                        Únete a GMXA
+                    </a>
+                    <a href="#products" class="btn-secondary border font-bold py-3.5 px-10 rounded-full text-xl transition-colors hover:bg-[color:var(--accent-color)] hover:text-white shadow-md text-[var(--accent-color)] border-[color:var(--accent-color)]">
+                        Explorar Productos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-20 px-6 bg-[var(--body-bg)]">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center fade-in-up animated">
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl font-bold mb-4">Ahorra de forma inteligente con <span class="gradient-text">Metas GMXA</span></h3>
+                    <p class="text-lg mb-6 text-[var(--text-secondary)]">
+                        Define tus objetivos, nosotros te ayudamos a alcanzarlos. Obtén rendimientos competitivos y organiza tus ahorros con herramientas intuitivas. Tu dinero siempre seguro y disponible.
+                    </p>
+                    <div class="mt-8">
+                        <h4 class="font-semibold text-lg text-[var(--text-primary)]">Progreso de tus Metas:</h4>
+                        <div class="progress-bar-container mt-2">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                        <p class="text-sm mt-1 text-[var(--text-secondary)]">75% de avance en "Vacaciones en Tulum"</p>
+                    </div>
+                    <a href="#products" class="font-bold text-lg mt-8 inline-block text-[var(--accent-color)]">
+                        Conoce más sobre Metas <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="relative flex justify-center items-center p-8 bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl shadow-2xl">
+                    <img src="https://cdni.binomo.com/assets/binomo/account-types-hero-c7d58a5c68f117c223a5796c5679c933.webp" alt="Visual de Metas GMXA y ahorro" class="rounded-2xl shadow-xl w-full max-w-md transform rotate-3 scale-105" style="filter: brightness(1.1);">
+                </div>
+            </div>
+        </section>
+        
+        <section id="about" class="py-20 px-6 bg-[var(--card-bg)]">
+            <div class="text-center max-w-3xl mx-auto fade-in-up animated">
+                <h2 class="text-4xl font-bold">La banca que siempre quisiste</h2>
+                <p class="mt-4 text-xl text-[var(--text-secondary)]">
+                    En GMXA, hemos reinventado la experiencia bancaria. Sin sucursales, sin filas, solo tú y tu dinero, gestionado de forma inteligente y segura.
+                </p>
+            </div>
+            <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12 fade-in-up animated">
+                <div class="custom-card p-8 text-center rounded-3xl flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: color-mix(in srgb, var(--accent-color) 15%, transparent);">
+                        <i class="fas fa-rocket text-4xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="font-bold text-2xl mt-2 mb-2">Rápido y Fácil</h4>
+                    <p class="text-[var(--text-secondary)]">Abre tu cuenta y realiza operaciones en minutos, desde donde estés.</p>
+                </div>
+                <div class="custom-card p-8 text-center rounded-3xl flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: color-mix(in srgb, var(--accent-color) 15%, transparent);">
+                        <i class="fas fa-lock text-4xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="font-bold text-2xl mt-2 mb-2">Máxima Seguridad</h4>
+                    <p class="text-[var(--text-secondary)]">Protegemos tu información y dinero con tecnología de punta.</p>
+                </div>
+                <div class="custom-card p-8 text-center rounded-3xl flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: color-mix(in srgb, var(--accent-color) 15%, transparent);">
+                        <i class="fas fa-headset text-4xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="font-bold text-2xl mt-2 mb-2">Soporte Humano</h4>
+                    <p class="text-[var(--text-secondary)]">Un equipo real listo para asistirte cuando lo necesites.</p>
+                </div>
+                <div class="custom-card p-8 text-center rounded-3xl flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: color-mix(in srgb, var(--accent-color) 15%, transparent);">
+                        <i class="fas fa-mobile-alt text-4xl text-[var(--accent-color)]"></i>
+                    </div>
+                    <h4 class="font-bold text-2xl mt-2 mb-2">Todo en tu Móvil</h4>
+                    <p class="text-[var(--text-secondary)]">Control total de tus finanzas desde la palma de tu mano.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="products" class="py-20 px-6">
+            <div class="text-center max-w-3xl mx-auto fade-in-up animated">
+                <h2 class="text-4xl font-bold">Nuestros Productos Financieros</h2>
+                <p class="mt-4 text-xl text-[var(--text-secondary)]">
+                    Soluciones diseñadas para tu vida. Simple, transparente y poderoso.
+                </p>
+            </div>
+            <div class="max-w-7xl mx-auto mt-16 grid lg:grid-cols-2 gap-16 items-center fade-in-up animated">
+                <div class="text-center lg:text-left">
+                    <h3 class="text-4xl font-bold">Cuenta <span class="gradient-text">GMXA</span></h3>
+                    <p class="font-semibold text-xl mt-3 text-[var(--text-secondary)]">Tu cuenta digital, potenciada para el hoy y el mañana.</p>
+                    <ul class="mt-8 space-y-4 text-lg text-[var(--text-secondary)]">
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Apertura sin costo ni monto mínimo:** Empieza cuando quieras.</span></li>
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Cero comisiones:** Libérate de cargos ocultos y saldo mínimo.</span></li>
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Tarjeta de Débito:** Física y digital, aceptada globalmente, sin costo.</span></li>
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Transferencias ilimitadas:** Envía y recibe dinero al instante y sin restricciones.</span></li>
+                    </ul>
+                    <a href="#" class="btn-primary inline-block text-white font-semibold py-3 px-8 rounded-full mt-10 text-lg shadow-md">
+                        Abrir mi Cuenta GMXA
+                    </a>
+                </div>
+                <div class="bank-card p-8 h-64 flex flex-col justify-between transform rotate-[-3deg] scale-105 shadow-2xl">
+                    <span class="logo-overlay" style="color: rgba(255,255,255,0.2);">GMXA</span>
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-semibold text-2xl">GMXA Débito</span>
+                        <i class="fab fa-cc-mastercard text-5xl opacity-80"></i>
+                    </div>
+                    <div class="flex flex-col gap-2 z-10">
+                        <div class="bank-card-chip"></div>
+                        <p class="number-text text-2xl">**** **** **** 1234</p>
+                        <div class="flex justify-between items-center">
+                            <p class="owner-name text-lg">JUAN P. RODRIGUEZ</p>
+                            <p class="text-sm">VENCE 12/28</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bank-card credit p-8 h-64 flex flex-col justify-between transform rotate-[3deg] scale-105 shadow-2xl lg:col-start-2">
+                    <span class="logo-overlay" style="color: rgba(0,0,0,0.2);">GMXA</span>
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-semibold text-2xl">GMXA Crédito</span>
+                        <i class="fab fa-cc-visa text-5xl opacity-80"></i>
+                    </div>
+                    <div class="flex flex-col gap-2 z-10">
+                        <div class="bank-card-chip"></div>
+                        <p class="number-text text-2xl">**** **** **** 5678</p>
+                        <div class="flex justify-between items-center">
+                            <p class="owner-name text-lg">JUAN P. RODRIGUEZ</p>
+                            <p class="text-sm">VENCE 08/29</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="text-center lg:text-left">
+                    <h3 class="text-4xl font-bold">Crédito <span class="gradient-text">GMXA</span></h3>
+                    <p class="font-semibold text-xl mt-3 text-[var(--text-secondary)]">El impulso financiero que necesitas, al instante y sin complicaciones.</p>
+                    <ul class="mt-8 space-y-4 text-lg text-[var(--text-secondary)]">
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Solicitud 100% digital:** Pídelo desde la app, sin papeleos ni burocracia.</span></li>
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Sin comisión por apertura:** Transparencia total, sin cargos sorpresa.</span></li>
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Montos flexibles:** Desde $5,000 hasta $200,000 MXN para tus proyectos.</span></li>
+                        <li class="flex items-center gap-4"><i class="fas fa-check-circle text-2xl text-green-500"></i><span>**Plazos a tu medida:** Elige pagar entre 6 y 24 meses, adaptado a tu economía.</span></li>
+                    </ul>
+                    <a href="#" class="btn-primary inline-block text-white font-semibold py-3 px-8 rounded-full mt-10 text-lg shadow-md">
+                        Calcular mi Crédito
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="py-20 px-6 bg-[var(--card-bg)]">
+            <div class="text-center max-w-3xl mx-auto fade-in-up animated">
+                <h2 class="text-4xl font-bold">La Voz de Nuestra Comunidad</h2>
+                <p class="mt-4 text-xl text-[var(--text-secondary)]">
+                    Miles de usuarios ya están transformando sus finanzas con GMXA.
+                </p>
+            </div>
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <div class="custom-card p-8 rounded-3xl flex flex-col justify-between scale-in animated">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=BR" alt="Avatar Brian Rangel" class="w-12 h-12 rounded-full ring-2 ring-[color:var(--accent-color)]">
+                        <div>
+                            <p class="font-bold text-lg text-[var(--text-primary)]">Brian Rangel</p>
+                            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-lg flex-grow text-[var(--text-secondary)]">"¡GMXA es un antes y un después\! El mejor servicio al cliente que he experimentado. Responden de inmediato y resuelven todo. Adiós a las filas."</p>
+                    <p class="text-sm mt-4 italic text-[var(--text-secondary)]">— Vía App Store</p>
+                </div>
+                <div class="custom-card p-8 rounded-3xl flex flex-col justify-between scale-in animated" style="animation-delay: 0.1s;">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=MB" alt="Avatar María Benítez" class="w-12 h-12 rounded-full ring-2 ring-[color:var(--accent-color)]">
+                        <div>
+                            <p class="font-bold text-lg text-[var(--text-primary)]">María Benítez</p>
+                            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-lg flex-grow text-[var(--text-secondary)]">"Abrí mi cuenta y empecé a ahorrar en una Meta para mis vacaciones. ¡Es increíble ver cómo mi dinero crece cada día! Súper fácil de usar y muy confiable."</p>
+                    <p class="text-sm mt-4 italic text-[var(--text-secondary)]">— Vía Facebook</p>
+                </div>
+                <div class="custom-card p-8 rounded-3xl flex flex-col justify-between scale-in animated" style="animation-delay: 0.2s;">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=IN" alt="Avatar Isaías Núñez" class="w-12 h-12 rounded-full ring-2 ring-[color:var(--accent-color)]">
+                        <div>
+                            <p class="font-bold text-lg text-[var(--text-primary)]">Isaías Núñez</p>
+                            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-lg flex-grow text-[var(--text-secondary)]">"Me encanta lo fácil que es hacer transferencias y pagar mis servicios. La app es súper intuitiva y el diseño está genial. La mejor opción para mis finanzas."</p>
+                    <p class="text-sm mt-4 italic text-[var(--text-secondary)]">— Vía Play Store</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="download" class="py-20 px-6 text-center">
+            <div class="max-w-xl mx-auto fade-in-up animated">
+                <h2 class="text-4xl font-bold">Descarga la App GMXA Ahora</h2>
+                <p class="mt-4 text-xl text-[var(--text-secondary)]">
+                    Tu futuro financiero comienza con un solo clic. Disponible en iOS y Android.
+                </p>
+                <div class="bg-white p-6 inline-block mt-8 rounded-3xl shadow-xl border border-[var(--border-color)]">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://gmxa.com/app" alt="QR Code para descargar la app GMXA" class="rounded-lg">
+                </div>
+                <p class="mt-4 text-lg font-medium text-[var(--text-secondary)]">Escanea el código QR con tu celular.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                    <a href="#" aria-label="Descargar en App Store"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" class="h-14"></a>
+                    <a href="#" aria-label="Disponible en Google Play"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png" alt="Get it on Google Play" class="h-14"></a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="help" class="py-20 px-6 bg-[var(--card-bg)]">
+            <div class="text-center max-w-3xl mx-auto fade-in-up animated">
+                <h2 class="text-4xl font-bold">¿Necesitas Asistencia?</h2>
+                <p class="mt-4 text-xl text-[var(--text-secondary)]">
+                    Nuestro equipo está listo para ayudarte en cada paso.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-8">
+                    <a href="#" class="custom-card p-8 rounded-3xl text-xl font-semibold flex flex-col items-center gap-4 transition-transform hover:scale-105 text-[var(--text-primary)]">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700 text-[var(--accent-color)]"><i class="fas fa-book-open text-3xl"></i></div>
+                        Centro de Ayuda
+                        <span class="text-sm text-gray-500">Encuentra respuestas rápidas</span>
+                    </a>
+                    <a href="#" class="custom-card p-8 rounded-3xl text-xl font-semibold flex flex-col items-center gap-4 transition-transform hover:scale-105 text-[var(--text-primary)]">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center bg-green-100 dark:bg-green-700 text-[#25D366]"><i class="fab fa-whatsapp text-3xl"></i></div>
+                        Chatea con Nosotros
+                        <span class="text-sm text-gray-500">Atención personalizada 24/7</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="pt-16 pb-12 px-6 text-sm bg-[var(--header-bg)] text-[var(--text-secondary)] border-t border-[var(--border-color)]">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                <div class="lg:col-span-2">
+                    <a href="#" class="flex items-center gap-3 mb-4">
+                         <svg class="h-9 w-9" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="url(#footerLogoGradient)" d="M50 0 L95 25 L95 75 L50 100 L5 75 L5 25 Z"/>
+                            <text x="50" y="60" font-size="38" fill="white" font-family="Poppins, sans-serif" font-weight="bold" text-anchor="middle">GX</text>
+                             <defs>
+                                <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--accent-color-gradient-start); stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:var(--accent-color-gradient-end); stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <h4 class="font-bold text-3xl text-[var(--text-primary)]">GMXA</h4>
+                    </a>
+                    <p class="text-base mt-2">La banca digital que te impulsa a alcanzar tus metas. Simple, segura e inteligente.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-5 text-[var(--text-primary)]">Productos</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#products" class="hover:text-[color:var(--accent-color)] transition-colors">Cuenta GMXA</a></li>
+                        <li><a href="#products" class="hover:text-[color:var(--accent-color)] transition-colors">Crédito GMXA</a></li>
+                        <li><a href="#features" class="hover:text-[color:var(--accent-color)] transition-colors">Metas de Ahorro</a></li>
+                        <li><a href="#" class="hover:text-[color:var(--accent-color)] transition-colors">Inversiones Inteligentes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-5 text-[var(--text-primary)]">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-[color:var(--accent-color)] transition-colors">Términos y Condiciones</a></li>
+                        <li><a href="#" class="hover:text-[color:var(--accent-color)] transition-colors">Aviso de Privacidad</a></li>
+                        <li><a href="#" class="hover:text-[color:var(--accent-color)] transition-colors">Contratos y Legales</a></li>
+                        <li><a href="#" class="hover:text-[color:var(--accent-color)] transition-colors">Costos y Comisiones</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-5 text-[var(--text-primary)]">Ayuda y Contacto</h4>
+                    <ul class="space-y-3">
+                        <li><a href="mailto:comunidad@gmxa.com" class="hover:text-[color:var(--accent-color)] transition-colors">comunidad@gmxa.com</a></li>
+                        <li><a href="tel:+525512345678" class="hover:text-[color:var(--accent-color)] transition-colors">+52 55 1234 5678</a></li>
+                        <li><a href="#help" class="hover:text-[color:var(--accent-color)] transition-colors">Centro de Soporte</a></li>
+                        <li>
+                            <div class="flex gap-4 text-2xl mt-4">
+                                <a href="#" aria-label="Facebook" class="hover:text-[color:var(--accent-color)]"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Instagram" class="hover:text-[color:var(--accent-color)]"><i class="fab fa-instagram"></i></a>
+                                <a href="#" aria-label="Twitter" class="hover:text-[color:var(--accent-color)]"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="LinkedIn" class="hover:text-[color:var(--accent-color)]"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t pt-8 text-center text-sm border-[var(--border-color)]">
+                <p>© 2025 GMXA, S.A. Institución de Banca Múltiple. Todos los derechos reservados.</p>
+                <p class="mt-2 text-xs">Av. de la Innovación 123, Piso 10, Col. Futura, C.P. 01010, Ciudad de México.</p>
+                <p class="mt-2 text-xs">GMXA es una marca registrada de GMXA Financial Group.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- THEME TOGGLE ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('gmxaTheme') || 'light';
+
+            function setTheme(theme) {
+                body.className = `theme-${theme}`;
+                document.documentElement.className = `theme-${theme}`;
+                themeToggle.innerHTML = `<i class="fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}"></i>`;
+                localStorage.setItem('gmxaTheme', theme);
+            }
+            setTheme(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = body.classList.contains('theme-light') ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+
+            // --- SCROLL ANIMATIONS (Intersection Observer) ---
+            const animatedElements = document.querySelectorAll('.fade-in-up, .scale-in');
+            const observerOptions = {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, observerOptions);
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
